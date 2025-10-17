@@ -90,7 +90,7 @@
       }
 
       if (!validarSenha(senha)) {
-        alert('A senha deve ter pelo menos 6 caracteres, incluindo 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial.');
+        alert('Senha inválida!');
         return false; // bloqueia envio
       }
 
