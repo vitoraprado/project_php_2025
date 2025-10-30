@@ -162,6 +162,7 @@ include("valida.php");
         <div id="menu-topo">
           <a href="principal.php"><button class="botao">MENU</button></a>
           <a href="cadUsuario.php"><button class="botao">CADASTRO USUÁRIOS</button></a>
+          <a href="cadFilmeGen.php"><button class="botao">CADASTRO DE GÊNEROS DE FILMES</button></a>
         </div>
         <div id="menu-baixo">
           <a href="logout.php"><button class="botao" style="background-color: #de3c3cff;">SAIR</button></a>
