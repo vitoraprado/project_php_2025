@@ -1,11 +1,12 @@
 <?php
 
-include("valida.php");
-include("conexao.php");
+include("../general/valida.php");
+include("../general/conexao.php");
 
 $cpf = $_POST['cpf'];
 $nome = $_POST['nome'];
 $senha = $_POST['senha'];
+$cpfAnterior = $_POST['cpfAnterior'];
 
 // --- Validação de CPF ---
 function validarCPF($cpf)
@@ -68,14 +69,18 @@ if ($stmt) {
     }
 }
 
-$sql = "insert into usuarios (cpf,nome,senha) values(?,?,?)";
+$sql = "update usuarios set cpf   = ?,
+                            nome  = ?,
+                            senha = ?
+                        where cpf = ?";
+
 $stmt = $conn->prepare($sql);
 
 if ($stmt) {
-    $stmt->bind_param("sss", $cpf, $nome, $senha);
+    $stmt->bind_param("ssss", $cpf, $nome, $senha, $cpfAnterior);
     $stmt->execute();
     $resultado = $stmt->get_result();
-    header("Location:cadUsuario.php");
+    header("Location: cadUsuario.php");
 } else {
-    echo "Erro ao Inserir!";
+    echo "Erro ao Alterar!";
 }

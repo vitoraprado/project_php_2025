@@ -1,5 +1,5 @@
 <?php
-include("conexao.php");
+include("../general/conexao.php");
 
 $senha = $_POST["senha"];
 $cpf = $_POST["cpf"];
@@ -79,7 +79,7 @@ if ($stmt) {
     <body>
         <div class="box">
             <h1><b><?php echo $msg; ?></b></h1>
-            <a href="index.php"><button id="botao_voltar" style="justify-content: right;">VOLTAR AO LOGIN</button></a>
+            <a href="../index.php"><button id="botao_voltar" style="justify-content: right;">VOLTAR AO LOGIN</button></a>
         </div>
     </body>
 

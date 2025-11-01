@@ -1,7 +1,7 @@
 <?php
 
-include("valida.php");
-include("conexao.php");
+include("../general/valida.php");
+include("../general/conexao.php");
 
 $id_genero = $_POST['id_genero'];
 $genero = $_POST['genero'];
@@ -34,7 +34,7 @@ if ($stmt) {
     $stmt->bind_param("si", $genero, $id_genero);
     $stmt->execute();
     $resultado = $stmt->get_result();
-    header("Location:cadFilmeGen.php");
+    header("Location: cadFilmeGen.php");
 } else {
     echo "Erro ao Alterar!";
 }

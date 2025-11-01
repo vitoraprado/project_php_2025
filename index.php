@@ -13,7 +13,7 @@
       align-items: center;
       background-color: #f2f2f2;
       font-family: Arial, sans-serif;
-      background-image: url('bg_login.png');
+      background-image: url('./general/bg_login.png');
       background-size: 100% 100%;
     }
 
@@ -106,7 +106,7 @@
       <h1>LOGIN</h1>
     </div>
     <br>
-    <form action="login.php" method="POST" onsubmit="return validarLogin()">
+    <form action="./general/login.php" method="POST" onsubmit="return validarLogin()">
       CPF:<br>
       <input type="text" name="cpf" id="cpf" maxlength="14" placeholder="000.000.000-00"><br>
       SENHA:<br>

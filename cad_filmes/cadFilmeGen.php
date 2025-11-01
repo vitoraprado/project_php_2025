@@ -1,5 +1,5 @@
 <?php
-include("valida.php");
+include("../general/valida.php");
 ?>
 
 <!DOCTYPE html>
@@ -65,6 +65,7 @@ include("valida.php");
             border-radius: 0px 0px 25px 0px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
             padding: 10px;
+            justify-content: center;
         }
 
         .botao {
@@ -121,9 +122,10 @@ include("valida.php");
         <div id="conteudo">
             <div class="menu">
                 <div id="menu-topo">
-                    <a href="principal.php"><button class="botao">MENU</button></a>
-                    <a href="cadUsuario.php"><button class="botao">CADASTRO USUÁRIOS</button></a>
-                    <a href="cadFilmeGen.php"><button class="botao">CADASTRO DE GÊNEROS DE FILMES</button></a>
+                    <a href="../general/principal.php"><button class="botao">MENU</button></a>
+                    <a href="../cad_usuarios/cadUsuario.php"><button class="botao">CADASTRO USUÁRIOS</button></a>
+                    <a href="../cad_filmes/cadFilmeGen.php"><button class="botao">CADASTRO DE GÊNEROS DE
+                            FILMES</button></a>
                 </div>
                 <div id="menu-baixo">
                     <a href="logout.php"><button class="botao" style="background-color: #de3c3cff;">SAIR</button></a>
@@ -137,38 +139,40 @@ include("valida.php");
                         GÊNERO: <input type="text" name="genero" style="display: flex; justify-content: center;"><br>
                         <input type="submit" value="CADASTRAR" class="botao" style="background-color: #30178aff;">
                     </form>
-                    <hr>
-                    <?php
-                    include("conexao.php");
-                    $sql = "select id_genero, genero from generos";
-                    if (!$resultado = $conn->query($sql)) {
-                        die("Erro na SQL!");
-                    }
-                    ?>
-                    <table>
-                        <tr>
-                            <th>CÓDIGO</th>
-                            <th>GÊNERO</th>
-                        </tr>
-                        <?php while ($row = $resultado->fetch_assoc()) {
-                            ?>
-                            <tr>
-                                <form method="post" action="alterarGenero.php" onsubmit="return validarFormulario(this)">
-                                    <input type="hidden" name="id_genero" value="<?= $row['id_genero']; ?>">
-                                    <td><?= $row['id_genero']; ?></td>
-                                    <td><input type="text" name="genero" value="<?= $row['genero']; ?>"></td>
-                                    <td><input type="submit" value="ALTERAR" class="botao"
-                                            style="background-color: #30178aff;"></td>
-                                </form>
-                                <form method="post" action="apagarGenero.php">
-                                    <input type="hidden" name="id_genero" value="<?= $row['id_genero']; ?>">
-                                    <td><input type="submit" value="EXCLUIR" class="botao"
-                                            style="background-color: #b62f6eff;"></td>
-                                </form>
-                                <?php
-                        } ?>
-                    </table>
                 </div>
+                <br>
+                <hr>
+                <?php
+                include("../general/conexao.php");
+                $sql = "select id_genero, genero from generos";
+                if (!$resultado = $conn->query($sql)) {
+                    die("Erro na SQL!");
+                }
+                ?>
+                <table style="display: flex; justify-content: center;">
+                    <tr>
+                        <th>CÓDIGO</th>
+                        <th>GÊNERO</th>
+                        <th colspan="2"></th>
+                    </tr>
+                    <?php while ($row = $resultado->fetch_assoc()) {
+                        ?>
+                        <tr>
+                            <form method="post" action="alterarGenero.php" onsubmit="return validarFormulario(this)">
+                                <input type="hidden" name="id_genero" value="<?= $row['id_genero']; ?>">
+                                <td><?= $row['id_genero']; ?></td>
+                                <td><input type="text" name="genero" value="<?= $row['genero']; ?>"></td>
+                                <td><input type="submit" value="ALTERAR" class="botao" style="background-color: #30178aff;">
+                                </td>
+                            </form>
+                            <form method="post" action="apagarGenero.php">
+                                <input type="hidden" name="id_genero" value="<?= $row['id_genero']; ?>">
+                                <td><input type="submit" value="EXCLUIR" class="botao" style="background-color: #b62f6eff;">
+                                </td>
+                            </form>
+                            <?php
+                    } ?>
+                </table>
             </div>
         </div>
     </div>
