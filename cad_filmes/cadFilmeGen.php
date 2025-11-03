@@ -8,7 +8,7 @@ include("../general/valida.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Principal</title>
+    <title>Cadastro de Gêneros</title>
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -124,8 +124,8 @@ include("../general/valida.php");
                 <div id="menu-topo">
                     <a href="../general/principal.php"><button class="botao">MENU</button></a>
                     <a href="../cad_usuarios/cadUsuario.php"><button class="botao">CADASTRO USUÁRIOS</button></a>
-                    <a href="../cad_filmes/cadFilmeGen.php"><button class="botao">CADASTRO DE GÊNEROS DE
-                            FILMES</button></a>
+                    <a href="../cad_filmes/cadFilmeGen.php"><button class="botao">CADASTRO DE GÊNEROS DE FILMES</button></a>
+                    <a href="../cad_filmes/cadFilmeGen.php"><button class="botao">CADASTRO DE FILMES</button></a>
                 </div>
                 <div id="menu-baixo">
                     <a href="logout.php"><button class="botao" style="background-color: #de3c3cff;">SAIR</button></a>

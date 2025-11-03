@@ -3,14 +3,14 @@
 include("../general/valida.php");
 include("../general/conexao.php");
 
-$id_genero = $_POST['id_genero'];
+$id_filme = $_POST['id_filme'];
 
-$sql = "delete from generos where id_genero = ?";
+$sql = "delete from generos where id_filme = ?";
 
 $stmt = $conn->prepare($sql);
 
 if ($stmt) {
-    $stmt->bind_param("i", $id_genero);
+    $stmt->bind_param("i", $id_filme);
     $stmt->execute();
     $resultado = $stmt->get_result();
     header("Location:cadFilme.php");
