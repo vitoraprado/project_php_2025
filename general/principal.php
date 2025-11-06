@@ -33,7 +33,7 @@ include("../general/valida.php");
     }
 
     .menu {
-      width: 20%;
+      width: 15%;
       background-color: #f4f4f4;
       display: flex;
       flex-direction: column;
@@ -60,7 +60,7 @@ include("../general/valida.php");
 
     #principal {
       background-color: #ddd;
-      width: 80%;
+      width: 85%;
       min-height: 400px;
       border-radius: 0px 0px 25px 0px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
@@ -98,8 +98,8 @@ include("../general/valida.php");
       <div class="menu">
         <div id="menu-topo">
           <a href="../general/principal.php"><button class="botao">MENU</button></a>
-          <a href="../cad_usuarios/cadUsuario.php"><button class="botao">CADASTRO USUÁRIOS</button></a>
-          <a href="../cad_filmes/cadFilme.php"><button class="botao">CADASTRO DE FILMES</button></a>
+          <a href="../cad_usuarios/cadUsuario.php"><button class="botao">USUÁRIOS</button></a>
+          <a href="../cad_filmes/cadFilme.php"><button class="botao">FILMES</button></a>
         </div>
         <div id="menu-baixo">
           <a href="logout.php"><button class="botao" style="background-color: #de3c3cff;">SAIR</button></a>

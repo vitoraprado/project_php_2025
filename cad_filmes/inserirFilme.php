@@ -6,8 +6,8 @@ include("../general/conexao.php");
 $nome_filme = $_POST['nome_filme'];
 $id_genero = $_POST['id_genero'];
 
-if ($nome_filme == '') {
-    die("Nome do filme inválido!");
+if ($nome_filme == '' or $id_genero == '') {
+    header("Location: cadFilme.php");
 }
 
 $sql = "select count(1) as existe from filmes where nome_filme = ? ";

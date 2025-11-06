@@ -33,7 +33,7 @@ include("../general/valida.php");
         }
 
         .menu {
-            width: 20%;
+            width: 15%;
             background-color: #f4f4f4;
             display: flex;
             flex-direction: column;
@@ -60,7 +60,7 @@ include("../general/valida.php");
 
         #principal {
             background-color: #ddd;
-            width: 80%;
+            width: 85%;
             min-height: 400px;
             border-radius: 0px 0px 25px 0px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
@@ -111,7 +111,7 @@ include("../general/valida.php");
 
             if (nome_filme === '') {
                 alert('O campo NOME não pode estar vazio.');
-                form.nome.focus();
+                form.nome_filme.focus();
                 return false;
             }
 
@@ -137,8 +137,8 @@ include("../general/valida.php");
             <div class="menu">
                 <div id="menu-topo">
                     <a href="../general/principal.php"><button class="botao">MENU</button></a>
-                    <a href="../cad_usuarios/cadUsuario.php"><button class="botao">CADASTRO USUÁRIOS</button></a>
-                    <a href="../cad_filmes/cadFilme.php"><button class="botao">CADASTRO DE FILMES</button></a>
+                    <a href="../cad_usuarios/cadUsuario.php"><button class="botao">USUÁRIOS</button></a>
+                    <a href="../cad_filmes/cadFilme.php"><button class="botao">FILMES</button></a>
                 </div>
                 <div id="menu-baixo">
                     <a href="../general/logout.php"><button class="botao"
@@ -151,7 +151,7 @@ include("../general/valida.php");
                     <div style="flex: 1;">
                         <form method="post" action="inserirFilme.php" onsubmit="return validarFormulario(this)">
                             <label>NOME:</label><br>
-                            <input type="text" name="nome_filme" style="width: 80%; height: 30px"><br><br>
+                            <input type="text" name="nome_filme" style="width: 80%"><br><br>
 
                             <label>GÊNERO:</label><br>
                             <select name="id_genero" style="width: 60%;">
@@ -170,7 +170,7 @@ include("../general/valida.php");
                                 style="background-color: #30178aff;"><br><br>
                         </form>
 
-                        <button class="botao" style="background: #62379aff;"
+                        <button class="botao" style="background: #62379aff;" enabled
                             onclick="document.getElementById('cadastroDialog').showModal()">ADICIONAR GÊNERO</button>
                     </div>
 
@@ -183,15 +183,20 @@ include("../general/valida.php");
                                 <th>AÇÕES</th>
                             </tr>
                             <?php
-                            $sql = "select f.id_filme as id_filme, f.nome_filme as nome_filme, f.id_genero as id_genero, g.genero as genero
-                        from filmes f left join generos g on f.id_genero = g.id_genero";
+                            $sql = "select f.id_filme as id_filme
+                                        ,  f.nome_filme as nome_filme
+                                        ,  f.id_genero as id_genero
+                                        ,  g.genero as genero
+                                    from filmes f 
+                                    left join generos g on f.id_genero = g.id_genero";
                             $resultado = $conn->query($sql);
                             while ($row = $resultado->fetch_assoc()) {
                                 ?>
                                 <tr>
+                                    <td><?= $row['id_filme']; ?></td>
+
                                     <form method="post" action="alterarFilme.php" onsubmit="return validarFormulario(this)">
                                         <input type="hidden" name="id_filme" value="<?= $row['id_filme']; ?>">
-                                        <td><?= $row['id_filme']; ?></td>
                                         <td><input type="text" name="nome_filme" value="<?= $row['nome_filme']; ?>"></td>
                                         <td>
                                             <select name="id_genero">
@@ -205,15 +210,19 @@ include("../general/valida.php");
                                                 ?>
                                             </select>
                                         </td>
-                                        <td>
+
+                                        <td style="display: flex; gap: 5px;">
                                             <input type="submit" value="ALTERAR" class="botao"
                                                 style="background-color: #30178aff;">
                                     </form>
-                                    <form method="post" action="apagarFilme.php" style="display:inline;">
+
+                                    <form method="post" action="apagarFilme.php" style="display:inline;"
+                                        onsubmit="return confirm('Tem certeza que deseja EXCLUIR o filme <?= addslashes($row['nome_filme']); ?>?');">
                                         <input type="hidden" name="id_filme" value="<?= $row['id_filme']; ?>">
                                         <input type="submit" value="EXCLUIR" class="botao"
                                             style="background-color: #b62f6eff;">
                                     </form>
+
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -234,7 +243,8 @@ include("../general/valida.php");
                 <button class="botao" style="float: left;" type="submit">Cadastrar</button>
             </menu>
         </form>
-        <button class="botao" style="float: right; background-color: #b62f6eff;" onclick="document.getElementById('cadastroDialog').close()">Cancelar</button>
+        <button class="botao" style="float: right; background-color: #b62f6eff;"
+            onclick="document.getElementById('cadastroDialog').close()">Cancelar</button>
     </dialog>
 </body>
 

@@ -5,7 +5,7 @@ include("../general/conexao.php");
 
 $id_filme = $_POST['id_filme'];
 
-$sql = "delete from generos where id_filme = ?";
+$sql = "delete from filmes where id_filme = ?";
 
 $stmt = $conn->prepare($sql);
 
