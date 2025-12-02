@@ -67,6 +67,12 @@ include("../general/valida.php");
       padding: 10px;
     }
 
+    .icone-menu {
+      /* Defina o tamanho do seu ícone (ex: 20 pixels) */
+      width: 20px;
+      height: 20px;
+    }
+
     .botao {
       background: #624aba;
       color: white;
@@ -75,6 +81,13 @@ include("../general/valida.php");
       border-radius: 25px;
       font-weight: bold;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    a {
+      text-decoration: none;
     }
 
     .botao:hover {
@@ -93,6 +106,16 @@ include("../general/valida.php");
     #conteudo {
       display: flex;
       align-items: stretch;
+    }
+
+    .welcome-message {
+      font-weight: 400;
+      font-size: 2.2rem;
+      text-transform: uppercase;
+      padding: 15px 10px;
+      margin: 0;
+      text-align: center;
+      width: 100%;
     }
   </style>
   <script>
@@ -146,7 +169,6 @@ include("../general/valida.php");
         return false;
       }
 
-      // Tudo certo → permite envio
       return true;
     }
   </script>
@@ -155,21 +177,41 @@ include("../general/valida.php");
 <body>
   <div class="container">
     <div id="header">
-      <p style="text-transform: uppercase; padding: 10px;"><b><?php echo "Olá " . $_SESSION['nome'] . "!"; ?></b></p>
+      <p class="welcome-message"><b><?php echo "Olá " . $_SESSION['nome'] . "!"; ?></b></p>
     </div>
     <div id="conteudo">
       <div class="menu">
         <div id="menu-topo">
-          <a href="../general/principal.php"><button class="botao">MENU</button></a>
-          <a href="../cad_usuarios/cadUsuario.php"><button class="botao">USUÁRIOS</button></a>
-          <a href="../cad_filmes/cadFilme.php"><button class="botao">FILMES</button></a>
+          <a href="../general/principal.php">
+            <button class="botao">
+              <img src="../general/icon_home.svg" alt="Ícone Home" class="icone-menu">
+              HOME
+            </button>
+          </a>
+          <a href="../cad_usuarios/cadUsuario.php">
+            <button class="botao">
+              <img src="../general/icon_user.svg" alt="Ícone Usuário" class="icone-menu">
+              USUÁRIOS
+            </button>
+          </a>
+          <a href="../cad_filmes/cadFilme.php">
+            <button class="botao">
+              <img src="../general/icon_film.svg" alt="Ícone Filme" class="icone-menu">
+              FILMES
+            </button>
+          </a>
         </div>
         <div id="menu-baixo">
-          <a href="../general/logout.php"><button class="botao" style="background-color: #de3c3cff;">SAIR</button></a>
+          <a href="../general/logout.php">
+            <button class="botao" style="background-color: #de3c3cff;">
+              <img src="../general/icon_sair.svg" alt="Ícone Sair" class="icone-menu">
+              SAIR
+            </button>
+          </a>
         </div>
       </div>
       <div id="principal">
-        <h1 style="display: flex; justify-content: center;">CADASTRO DE USUÁRIOS</h1>
+        <h1 style="color: #624aba;display: flex; justify-content: center;">CADASTRO DE USUÁRIOS</h1>
         <br>
         <div style="display: flex; justify-content: center;">
           <form method="post" action="inserirUsuario.php" onsubmit="return validarFormulario(this)">

@@ -5,8 +5,8 @@ include("../general/conexao.php");
 
 $genero = $_POST['genero'];
 
-if ($genero == '') {
-    die("Nome do gênero inválido!");
+if (trim($genero) == '') {
+    header("Location:cadFilme.php");
 }
 
 $sql = "select count(1) as existe from generos where genero = ? ";

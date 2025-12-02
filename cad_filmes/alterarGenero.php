@@ -6,8 +6,8 @@ include("../general/conexao.php");
 $id_genero = $_POST['id_genero'];
 $genero = $_POST['genero'];
 
-if ($genero == '') {
-    die("Nome de gênero inválido!");
+if (trim($genero) == '') {
+    header("Location:cadFilme.php");
 }
 
 $sql = "update generos set genero = ? where id_genero = ?";

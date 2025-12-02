@@ -5,6 +5,7 @@ include("../general/conexao.php");
 
 $nome_filme = $_POST['nome_filme'];
 $id_genero = $_POST['id_genero'];
+$ano = $_POST['ano'];
 
 if ($nome_filme == '' or $id_genero == '') {
     header("Location: cadFilme.php");
@@ -26,11 +27,11 @@ if ($stmt) {
     }
 }
 
-$sql = "insert into filmes (nome_filme, id_genero) values(?,?)";
+$sql = "insert into filmes (nome_filme, id_genero,ano) values(?,?,?)";
 $stmt = $conn->prepare($sql);
 
 if ($stmt) {
-    $stmt->bind_param("si", $nome_filme, $id_genero);
+    $stmt->bind_param("sii", $nome_filme, $id_genero, $ano);
     $stmt->execute();
     $resultado = $stmt->get_result();
     header("Location: cadFilme.php");

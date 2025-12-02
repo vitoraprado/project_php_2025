@@ -67,6 +67,12 @@ include("../general/valida.php");
             padding: 10px;
         }
 
+        .icone-menu {
+            /* Defina o tamanho do seu ícone (ex: 20 pixels) */
+            width: 20px;
+            height: 20px;
+        }
+
         .botao {
             background: #624aba;
             color: white;
@@ -75,6 +81,13 @@ include("../general/valida.php");
             border-radius: 25px;
             font-weight: bold;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        a {
+            text-decoration: none;
         }
 
         .botao:hover {
@@ -102,26 +115,56 @@ include("../general/valida.php");
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             width: 300px;
         }
+
+        .welcome-message {
+            font-weight: 400;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            padding: 15px 10px;
+            margin: 0;
+            text-align: center;
+            width: 100%;
+        }
     </style>
     <script>
         // --- Função principal do onsubmit ---
         function validarFormulario(form) {
             const nome_filme = form.nome_filme.value.trim();
             const id_genero = form.id_genero.value;
+            const ano = form.ano.value;
+
+            let data = new Date();
+            let ano_atual = data.getFullYear();
 
             if (nome_filme === '') {
-                alert('O campo NOME não pode estar vazio.');
+                alert('O campo NOME não pode estar vazio!');
                 form.nome_filme.focus();
                 return false;
             }
 
             if (id_genero === '') {
-                alert('O campo GÊNERO não pode estar vazio.');
+                alert('O campo GÊNERO não pode estar vazio!');
                 form.id_genero.focus();
                 return false;
             }
 
-            // Tudo certo → permite envio
+            if (ano > ano_atual || ano < 1900) {
+                alert('Ano inválido!');
+                return false;
+            }
+
+            return true;
+        }
+
+        function validarGenero(form) {
+            const genero = form.genero.value.trim();
+
+            if (genero == '') {
+                alert('Preencha o nome do gênero!');
+                form.genero.focus();
+                return false;
+            }
+            
             return true;
         }
     </script>
@@ -130,30 +173,48 @@ include("../general/valida.php");
 <body>
     <div class="container">
         <div id="header">
-            <p style="text-transform: uppercase; padding: 10px;"><b><?php echo "Olá " . $_SESSION['nome'] . "!"; ?></b>
-            </p>
+            <p class="welcome-message"><b><?php echo "Olá " . $_SESSION['nome'] . "!"; ?></b></p>
         </div>
         <div id="conteudo">
             <div class="menu">
                 <div id="menu-topo">
-                    <a href="../general/principal.php"><button class="botao">MENU</button></a>
-                    <a href="../cad_usuarios/cadUsuario.php"><button class="botao">USUÁRIOS</button></a>
-                    <a href="../cad_filmes/cadFilme.php"><button class="botao">FILMES</button></a>
+                    <a href="../general/principal.php">
+                        <button class="botao">
+                            <img src="../general/icon_home.svg" alt="Ícone Home" class="icone-menu">
+                            HOME
+                        </button>
+                    </a>
+                    <a href="../cad_usuarios/cadUsuario.php">
+                        <button class="botao">
+                            <img src="../general/icon_user.svg" alt="Ícone Usuário" class="icone-menu">
+                            USUÁRIOS
+                        </button>
+                    </a>
+                    <a href="../cad_filmes/cadFilme.php">
+                        <button class="botao">
+                            <img src="../general/icon_film.svg" alt="Ícone Filme" class="icone-menu">
+                            FILMES
+                        </button>
+                    </a>
                 </div>
                 <div id="menu-baixo">
-                    <a href="../general/logout.php"><button class="botao"
-                            style="background-color: #de3c3cff;">SAIR</button></a>
+                    <a href="../general/logout.php">
+                        <button class="botao" style="background-color: #de3c3cff;">
+                            <img src="../general/icon_sair.svg" alt="Ícone Sair" class="icone-menu">
+                            SAIR
+                        </button>
+                    </a>
                 </div>
             </div>
             <div id="principal">
-                <h1 style="text-align: center;">CADASTRO DE FILMES</h1>
+                <h1 style="color: #624aba;text-align: center;">CADASTRO DE FILMES</h1>
                 <div style="display: flex; gap: 30px;">
                     <div style="flex: 1;">
                         <form method="post" action="inserirFilme.php" onsubmit="return validarFormulario(this)">
-                            <label>NOME:</label><br>
+                            NOME:<br>
                             <input type="text" name="nome_filme" style="width: 80%"><br><br>
 
-                            <label>GÊNERO:</label><br>
+                            GÊNERO:<br>
                             <select name="id_genero" style="width: 60%;">
                                 <option value=""></option>
                                 <?php
@@ -166,12 +227,18 @@ include("../general/valida.php");
                                 ?>
                             </select><br><br>
 
+                            ANO:<br>
+                            <input type="number" name="ano" min="1900" step="1" placeholder="YYYY"><br><br>
+
                             <input type="submit" value="CADASTRAR" class="botao"
                                 style="background-color: #30178aff;"><br><br>
                         </form>
 
                         <button class="botao" style="background: #62379aff;" enabled
-                            onclick="document.getElementById('cadastroDialog').showModal()">ADICIONAR GÊNERO</button>
+                            onclick="document.getElementById('cadastroGen').showModal()">ADICIONAR GÊNERO</button>
+                        <br>
+                        <button class="botao" style="background: #62379aff;" enabled
+                            onclick="document.getElementById('edicaoGen').showModal()">GERENCIAR GÊNEROS</button>
                     </div>
 
                     <div style="flex: 2;">
@@ -180,6 +247,7 @@ include("../general/valida.php");
                                 <th>CÓDIGO</th>
                                 <th>NOME DO FILME</th>
                                 <th>GÊNERO</th>
+                                <th>ANO</th>
                                 <th>AÇÕES</th>
                             </tr>
                             <?php
@@ -187,6 +255,7 @@ include("../general/valida.php");
                                         ,  f.nome_filme as nome_filme
                                         ,  f.id_genero as id_genero
                                         ,  g.genero as genero
+                                        ,  f.ano as ano
                                     from filmes f 
                                     left join generos g on f.id_genero = g.id_genero";
                             $resultado = $conn->query($sql);
@@ -209,6 +278,9 @@ include("../general/valida.php");
                                                 }
                                                 ?>
                                             </select>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="ano" min="1900" step="1" value="<?= $row['ano'] ?>">
                                         </td>
 
                                         <td style="display: flex; gap: 5px;">
@@ -234,17 +306,58 @@ include("../general/valida.php");
     </div>
 
     <!-- Diálogo de cadastro de gêneros -->
-    <dialog id="cadastroDialog">
-        <form style="align-items: center;" method="post" action="inserirGenero.php">
+    <dialog id="cadastroGen">
+        <form style="align-items: center;" method="post" action="inserirGenero.php"
+            onsubmit="return validarGenero(this)">
             <h2 style="text-align: center;">CADASTRO DE GÊNEROS</h2>
             GÊNERO:<br><input type="text" name="genero" required>
 
             <menu>
-                <button class="botao" style="float: left;" type="submit">Cadastrar</button>
+                <button class="botao" style="float: left;" type="submit">CADASTRAR</button>
             </menu>
         </form>
         <button class="botao" style="float: right; background-color: #b62f6eff;"
-            onclick="document.getElementById('cadastroDialog').close()">Cancelar</button>
+            onclick="document.getElementById('cadastroGen').close()">CANCELAR</button>
+    </dialog>
+
+    <!-- Diálogo de edição / exclusão de gêneros -->
+    <dialog id="edicaoGen" style="width: 35vw;">
+        <table style="width: 100%;">
+            <tr>
+                <th>CÓDIGO</th>
+                <th>GÊNERO</th>
+            </tr>
+            <?php
+            $sql = "select g.id_genero as id_genero
+                        ,  g.genero as genero
+                                    from generos g";
+            $resultado = $conn->query($sql);
+            while ($row = $resultado->fetch_assoc()) {
+                ?>
+                <tr>
+                    <td><?= $row['id_genero']; ?></td>
+
+                    <form method="post" action="alterarGenero.php" onsubmit="return validarGenero(this)">
+                        <input type="hidden" name="id_genero" value="<?= $row['id_genero']; ?>">
+                        <td><input type="text" name="genero" value="<?= $row['genero']; ?>"></td>
+
+                        <td style="display: flex; gap: 5px;">
+                            <input type="submit" value="ALTERAR" class="botao" style="background-color: #30178aff;">
+                    </form>
+
+                    <form method="post" action="apagarGenero.php" style="display:inline;"
+                        onsubmit="return confirm('Tem certeza que deseja EXCLUIR o gênero <?= addslashes($row['genero']); ?>?');">
+                        <input type="hidden" name="id_genero" value="<?= $row['id_genero']; ?>">
+                        <input type="submit" value="EXCLUIR" class="botao" style="background-color: #b62f6eff;">
+                    </form>
+
+                    </td>
+                </tr>
+            <?php } ?>
+        </table>
+        <br>
+        <button class="botao" style="background-color: #b62f6eff;"
+            onclick="document.getElementById('edicaoGen').close()">CANCELAR</button>
     </dialog>
 </body>
 

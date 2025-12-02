@@ -65,6 +65,20 @@ include("../general/valida.php");
       border-radius: 0px 0px 25px 0px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
       padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      /* Centraliza verticalmente */
+      align-items: center;
+      /* Centraliza horizontalmente */
+      text-align: center;
+      /* Centraliza o texto em si */
+    }
+
+    .icone-menu {
+      /* Defina o tamanho do seu ícone (ex: 20 pixels) */
+      width: 20px;
+      height: 20px;
     }
 
     .botao {
@@ -75,6 +89,13 @@ include("../general/valida.php");
       border-radius: 25px;
       font-weight: bold;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    a {
+      text-decoration: none;
     }
 
     .botao:hover {
@@ -86,27 +107,64 @@ include("../general/valida.php");
       display: flex;
       align-items: stretch;
     }
+
+    .welcome-message {
+      font-weight: 400;
+      font-size: 2.2rem;
+      text-transform: uppercase;
+      padding: 15px 10px;
+      margin: 0;
+      text-align: center;
+      width: 100%;
+    }
   </style>
 </head>
 
 <body>
   <div class="container">
     <div id="header">
-      <p style="text-transform: uppercase; padding: 10px;"><b><?php echo "Olá " . $_SESSION['nome'] . "!"; ?></b></p>
+      <p class="welcome-message"><b><?php echo "Olá " . $_SESSION['nome'] . "!"; ?></b></p>
     </div>
     <div id="conteudo">
       <div class="menu">
         <div id="menu-topo">
-          <a href="../general/principal.php"><button class="botao">MENU</button></a>
-          <a href="../cad_usuarios/cadUsuario.php"><button class="botao">USUÁRIOS</button></a>
-          <a href="../cad_filmes/cadFilme.php"><button class="botao">FILMES</button></a>
+          <a href="../general/principal.php">
+            <button class="botao">
+              <img src="../general/icon_home.svg" alt="Ícone Home" class="icone-menu">
+              HOME
+            </button>
+          </a>
+          <a href="../cad_usuarios/cadUsuario.php">
+            <button class="botao">
+              <img src="../general/icon_user.svg" alt="Ícone Usuário" class="icone-menu">
+              USUÁRIOS
+            </button>
+          </a>
+          <a href="../cad_filmes/cadFilme.php">
+            <button class="botao">
+              <img src="../general/icon_film.svg" alt="Ícone Filme" class="icone-menu">
+              FILMES
+            </button>
+          </a>
         </div>
         <div id="menu-baixo">
-          <a href="logout.php"><button class="botao" style="background-color: #de3c3cff;">SAIR</button></a>
+          <a href="../general/logout.php">
+            <button class="botao" style="background-color: #de3c3cff;">
+              <img src="../general/icon_sair.svg" alt="Ícone Sair" class="icone-menu">
+              SAIR
+            </button>
+          </a>
         </div>
       </div>
       <div id="principal">
-        <h1 style="display: flex; justify-content: center;">CONTEÚDO PRINCIPAL</h1>
+        <h1 style="color: #624aba; margin-bottom: 10px; font-size: 2.5rem;">
+          PROJETO - 12/2025 - HTML / CSS / PHP / JS
+        </h1>
+        <p style="font-size: 1.5rem; max-width: 70%; line-height: 1.6; color: #333;">
+          <b>DISCIPLINA:</b> Tecnologias para a Internet II<br>
+          <b>ALUNO:</b> Vítor Almeida Prado<br>
+          <b>R.A:</b> 5165441
+        </p>
       </div>
     </div>
   </div>
